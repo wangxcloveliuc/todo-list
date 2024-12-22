@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import TodoInput from './TodoInput';
 import TodoItem from './TodoItem';
 import useLocalStorage from '../hooks/useLocalStorage';

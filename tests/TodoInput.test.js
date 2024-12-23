@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import TodoInput from '../src/components/TodoInput';
 
 describe('TodoInput Component', () => {
@@ -7,5 +7,21 @@ describe('TodoInput Component', () => {
         render(<TodoInput addTodo={() => {}} />);
         const inputElement = screen.getByPlaceholderText(/add a new task/i);
         expect(inputElement).toBeInTheDocument();
+    });
+
+    test('calls addTodo with correct input on submit', () => {
+        const addTodoMock = jest.fn();
+        render(<TodoInput addTodo={addTodoMock} />);
+        const input = screen.getByPlaceholderText(/add a new task/i);
+        fireEvent.change(input, { target: { value: 'New Todo' } });
+        fireEvent.submit(screen.getByRole('form'));
+        expect(addTodoMock).toHaveBeenCalledWith('New Todo');
+    });
+
+    test('does not call addTodo when input is empty', () => {
+        const addTodoMock = jest.fn();
+        render(<TodoInput addTodo={addTodoMock} />);
+        fireEvent.submit(screen.getByRole('form'));
+        expect(addTodoMock).not.toHaveBeenCalled();
     });
 });

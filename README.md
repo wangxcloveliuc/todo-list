@@ -71,6 +71,7 @@ This project aims to create a user-friendly interface for task management, with 
 
 ## Project Structure
 
+```
 todo-list-app/
 ├── public/
 │   ├── index.html  
@@ -93,6 +94,7 @@ todo-list-app/
 ├── .gitignore
 ├── package.json
 └── README.md
+```
 
 ## Development Setup
 

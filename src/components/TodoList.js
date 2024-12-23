@@ -7,6 +7,14 @@ import './TodoList.css'
 const TodoList = () => {
     const [todos, setTodos] = useLocalStorage('todos', []);
 
+    const EmptyState = () => (
+        <div className="empty-state">
+            <img src="/empty-state.svg" alt="No tasks yet" />
+            <h3>No tasks yet!</h3>
+            <p>Add your first task to get started</p>
+        </div>
+    );
+
     const addTodo = (text) => {
         const newTodos = [...todos, { id: Date.now(), text, completed: false }];
         setTodos(newTodos);

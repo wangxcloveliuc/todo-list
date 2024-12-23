@@ -3,9 +3,17 @@ import TodoList from './components/TodoList';
 
 const App = () => {
     return (
-        <div>
-            <h1>Todo List</h1>
-            <TodoList />
+        <div className="app-container">
+            <header className="app-header">
+                <h1>✓ TaskMaster</h1>
+                <p className="app-subtitle">Organize your day, achieve more</p>
+            </header>
+            <main className="main-content">
+                <TodoList />
+            </main>
+            <footer className="app-footer">
+                <p>Made with ♥️ for productivity</p>
+            </footer>
         </div>
     );
 };

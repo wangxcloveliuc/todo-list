@@ -19,6 +19,12 @@ const TodoInput = ({ addTodo }) => {
         inputRef.current.focus();
     };
 
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter' && e.ctrlKey) {
+            handleSubmit(e);
+        }
+    };
+
     useEffect(() => {
         inputRef.current.focus();
     }, []);

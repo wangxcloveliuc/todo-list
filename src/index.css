@@ -222,12 +222,19 @@ body.dark-mode {
     color: #ffffff;
 }
 
-body.dark-mode .todo-item {
+body.dark-mode .todo-item,
+body.dark-mode .filter-bar {
     background-color: #2d2d2d;
     border-color: #404040;
 }
 
-body.dark-mode input[type='text'] {
+body.dark-mode input[type*='text'],
+body.dark-mode input[type*='date'],
+body.dark-mode input[type*='time'],
+body.dark-mode select,
+body.dark-mode select:hover,
+body.dark-mode select:focus,
+body.dark-mode select option {
     background-color: #333;
     color: #ffffff;
     border-color: #404040;

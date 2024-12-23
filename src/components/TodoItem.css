@@ -160,3 +160,45 @@
     color: #777;
     margin-top: 4px;
 }
+
+.todo-category {
+    display: inline-block;
+    background: #e3f2fd;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    color: #1976d2;
+    margin: 4px 0;
+}
+
+.todo-tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin: 4px 0;
+}
+
+.todo-tag {
+    background: #f1f8e9;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    color: #558b2f;
+    border: 1px solid #c5e1a5;
+}
+
+.todo-metadata {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid #eee;
+}
+
+.todo-metadata-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+}

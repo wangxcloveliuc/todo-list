@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './TodoItem.css';
 import Modal from './Modal';
 
-const TodoItem = ({ todo, toggleComplete, removeTodo, editTodo }) => {
+const TodoItem = ({ provided, todo, toggleComplete, removeTodo, editTodo }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [newText, setNewText] = useState(todo.text);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -29,7 +29,12 @@ const TodoItem = ({ todo, toggleComplete, removeTodo, editTodo }) => {
     }, [todo.dueDate]);
 
     return (
-        <div className="todo-item">
+        <div
+            className="todo-item"
+            ref={provided.innerRef}
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+        >
             <Modal
                 isOpen={showDeleteModal}
                 onClose={() => setShowDeleteModal(false)}
@@ -62,8 +67,30 @@ const TodoItem = ({ todo, toggleComplete, removeTodo, editTodo }) => {
                         className={`todo-text ${todo.completed ? 'completed' : ''}`}
                     >
                         {todo.text}
-                        {todo.dueDate && <div className="todo-due-date">Due: {todo.dueDate}</div>}
-                        {todo.reminder && <div className="todo-reminder">Reminder: {todo.reminder}</div>}
+                        <div className="todo-metadata">
+                            {todo.category && (
+                                <div className="todo-metadata-row">
+                                    <span className="todo-category">{todo.category}</span>
+                                </div>
+                            )}
+                            {todo.tags && (
+                                <div className="todo-metadata-row">
+                                    {todo.tags.map(tag => (
+                                        <span key={tag} className="todo-tag">{tag}</span>
+                                    ))}
+                                </div>
+                            )}
+                            {todo.dueDate && (
+                                <div className="todo-metadata-row">
+                                    <span className="todo-due-date">Due: {todo.dueDate}</span>
+                                </div>
+                            )}
+                            {todo.reminder && (
+                                <div className="todo-metadata-row">
+                                    <span className="todo-reminder">Reminder: {todo.reminder}</span>
+                                </div>
+                            )}
+                        </div>
                     </label>
                 ) : (
                     <input
@@ -100,5 +127,4 @@ const TodoItem = ({ todo, toggleComplete, removeTodo, editTodo }) => {
         </div>
     );
 };
-
 export default TodoItem;

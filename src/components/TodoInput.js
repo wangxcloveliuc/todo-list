@@ -5,21 +5,27 @@ const TodoInput = ({ addTodo }) => {
     const [inputValue, setInputValue] = useState('');
     const [dueDate, setDueDate] = useState('');
     const [reminder, setReminder] = useState('');
+    const [category, setCategory] = useState('');
+    const [tags, setTags] = useState('');
     const inputRef = useRef(null);
 
     const handleSubmit = (e) => {
         e.preventDefault();
         if (inputValue.trim()) {
-            addTodo(inputValue.trim(), dueDate, reminder);
+            addTodo(inputValue.trim(), dueDate, reminder, category, tags.split(',').map(tag => tag.trim()));
             setInputValue('');
             setDueDate('');
             setReminder('');
+            setCategory('');
+            setTags('');
             inputRef.current.focus();
         }
     };
 
     const handleClear = () => {
         setInputValue('');
+        setCategory('');
+        setTags('');
         inputRef.current.focus();
     };
 
@@ -57,6 +63,20 @@ const TodoInput = ({ addTodo }) => {
                 onChange={(e) => setReminder(e.target.value)}
                 className="todo-input-time"
                 placeholder="Reminder"
+            />
+            <input
+                type="text"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+                className="todo-input-category"
+                placeholder="Category"
+            />
+            <input
+                type="text"
+                value={tags}
+                onChange={(e) => setTags(e.target.value)}
+                className="todo-input-tags"
+                placeholder="Tags (comma separated)"
             />
             <button type="submit" className="todo-add-button" aria-label="Add new task">
                 Add

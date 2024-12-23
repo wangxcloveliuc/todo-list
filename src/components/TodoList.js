@@ -2,14 +2,16 @@ import React from 'react';
 import TodoInput from './TodoInput';
 import TodoItem from './TodoItem';
 import useLocalStorage from '../hooks/useLocalStorage';
-import './TodoList.css'
+import './TodoList.css';
 import { useState } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
-const TodoList = ({user, onLogout}) => {
+const TodoList = ({ user, onLogout }) => {
     const [todos, setTodos] = useLocalStorage('todos', [], user.username);
     const [filter, setFilter] = useState('all');
     const [sortBy, setSortBy] = useState('date');
+    const [categoryFilter, setCategoryFilter] = useState('all');
+    const uniqueCategories = [...new Set(todos.map(todo => todo.category).filter(Boolean))];
 
     const FilterBar = () => (
         <div className="filter-bar" role="toolbar" aria-label="Task filter options">
@@ -31,19 +33,27 @@ const TodoList = ({user, onLogout}) => {
                 <option value="alphabetical">📝 Alphabetical</option>
                 <option value="priority">🔥 Priority</option>
             </select>
+            <select 
+                value={categoryFilter} 
+                onChange={(e) => setCategoryFilter(e.target.value)}
+                aria-label="Filter by category"
+            >
+                <option value="all">📁 All Categories</option>
+                {uniqueCategories.map(category => (
+                    <option key={category} value={category}>🗂️ {category}</option>
+                ))}
+            </select>
         </div>
     );
-
     const EmptyState = () => (
         <div className="empty-state">
-            {/* <img src="/empty-state.svg" alt="No tasks yet" /> */}
             <h3>No tasks yet!</h3>
             <p>Add your first task to get started</p>
         </div>
     );
 
-    const addTodo = (text, dueDate, reminder) => {
-        const newTodos = [...todos, { id: Date.now(), text, completed: false, dueDate, reminder }];
+    const addTodo = (text, dueDate, reminder, category, tags) => {
+        const newTodos = [...todos, { id: String(Date.now()), text, completed: false, dueDate, reminder, category, tags }];
         setTodos(newTodos);
     };
 
@@ -68,80 +78,77 @@ const TodoList = ({user, onLogout}) => {
 
     const handleDragEnd = (result) => {
         if (!result.destination) return;
-
-        const items = Array.from(todos);
-        const [reorderedItem] = items.splice(result.source.index, 1);
-        items.splice(result.destination.index, 0, reorderedItem);
-
-        setTimeout(() => {
-            setTodos(items);
-        }, 0);
-    };
+        
+        const reorderedTodos = Array.from(todos);
+        const [movedTodo] = reorderedTodos.splice(result.source.index, 1);
+        reorderedTodos.splice(result.destination.index, 0, movedTodo);
+        
+        setTodos(reorderedTodos);
+    };      
 
     return (
-        <DragDropContext onDragEnd={handleDragEnd}>
-            <Droppable droppableId="droppable-todos">
-                {(provided) => (
-                    <div
-                        className="todo-container"
-                        {...provided.droppableProps}
-                        ref={provided.innerRef}
-                    >
-                        <div className="todo-header">
-                            <h2>{user.username}'s Todo List</h2>
-                            <button 
-                                className="logout-button"
-                                onClick={onLogout}
-                            >
-                                🚪 Logout
-                            </button>
-                        </div>
-                        <TodoInput addTodo={addTodo} />
-                        <FilterBar />
-                        {todos.length === 0 ? (
-                            <EmptyState />
-                        ) : (
-                            todos
-                                .filter(todo => {
-                                    switch(filter) {
-                                        case 'active':
-                                            return !todo.completed;
-                                        case 'completed':
-                                            return todo.completed;
-                                        case 'all':
-                                        default:
-                                            return true;
-                                    }
-                                })
-                                .sort((a, b) => {
-                                    if (sortBy === 'alphabetical') return a.text.localeCompare(b.text);
-                                    if (sortBy === 'priority') return b.priority - a.priority;
-                                    return b.id - a.id;
-                                })
-                                .map((todo, index) => (
-                                    <Draggable key={`${todo.id}-${index}`} draggableId={String(todo.id)} index={index}>
+        <div className="todo-container">
+            <div className="todo-header">
+                <h2>{user.username}'s Todo List</h2>
+                <button 
+                    className="logout-button"
+                    onClick={onLogout}
+                >
+                    🚪 Logout
+                </button>
+            </div>
+            <TodoInput addTodo={addTodo} />
+            <FilterBar />
+            <DragDropContext onDragEnd={handleDragEnd}>
+                <Droppable droppableId="todo-list-droppable">
+                    {(provided) => (
+                        <ul
+                            className="todo-items-container"
+                            {...provided.droppableProps}
+                            ref={provided.innerRef}
+                        >
+                            {todos.length === 0 ? (
+                                <li style={{ listStyle: 'none' }}> </li>
+                            ) : (
+                                todos
+                                    .filter(todo => {
+                                        if (categoryFilter !== 'all' && todo.category !== categoryFilter) return false;
+                                        switch(filter) {
+                                            case 'active':
+                                                return !todo.completed;
+                                            case 'completed':
+                                                return todo.completed;
+                                            case 'all':
+                                            default:
+                                                return true;
+                                        }
+                                    })
+                                    .sort((a, b) => {
+                                        if (sortBy === 'alphabetical') return a.text.localeCompare(b.text);
+                                        if (sortBy === 'priority') return b.priority - a.priority;
+                                        return b.id - a.id;
+                                    })
+                                    .map((todo, index) => (
+                                        <Draggable key={todo.id} draggableId={todo.id} index={index}>
                                         {(provided) => (
-                                            <div
-                                                ref={provided.innerRef}
-                                                {...provided.draggableProps}
-                                                {...provided.dragHandleProps}
-                                            >
-                                                <TodoItem
-                                                    todo={todo}
-                                                    toggleComplete={toggleComplete}
-                                                    removeTodo={removeTodo}
-                                                    editTodo={editTodo}
-                                                />
-                                            </div>
+                                            <TodoItem
+                                            todo={todo}
+                                            provided={provided}
+                                            toggleComplete={toggleComplete}
+                                            removeTodo={removeTodo}
+                                            editTodo={editTodo}
+                                            />
                                         )}
-                                    </Draggable>
-                                ))
-                        )}
-                        {provided.placeholder}
-                    </div>
-                )}
-            </Droppable>
-        </DragDropContext>
+                                        </Draggable>
+                                    ))
+                            )}
+                            {provided.placeholder}
+                        </ul>
+                    )}
+                </Droppable>
+            </DragDropContext>
+            {todos.length === 0 && <EmptyState />}
+        </div>
     );
 };
 

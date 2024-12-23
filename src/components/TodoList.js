@@ -83,9 +83,13 @@ const TodoList = () => {
             <div>
                 <TodoInput addTodo={addTodo} />
                 <FilterBar />
-                <Droppable droppableId="droppable-todos">
+                <Droppable droppableId="droppable-todos" mode="standard" type="DEFAULT">
                     {(provided) => (
-                        <div {...provided.droppableProps} ref={provided.innerRef}>
+                        <div 
+                            {...provided.droppableProps} 
+                            ref={provided.innerRef}
+                            style={{ minHeight: '100px' }}
+                        >
                             {todos.length === 0 ? (
                                 <EmptyState />
                             ) : (

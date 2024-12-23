@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 
-const useLocalStorage = (key, initialValue) => {
+const useLocalStorage = (key, initialValue, username) => {
+    const userSpecificKey = `${username}-${key}`;
     const [storedValue, setStoredValue] = useState(() => {
         try {
-            const item = window.localStorage.getItem(key);
+            const item = window.localStorage.getItem(userSpecificKey);
             return item ? JSON.parse(item) : initialValue;
         } catch (error) {
             console.error('Storage error:', error);
@@ -13,11 +14,11 @@ const useLocalStorage = (key, initialValue) => {
 
     useEffect(() => {
         try {
-            window.localStorage.setItem(key, JSON.stringify(storedValue));
+            window.localStorage.setItem(userSpecificKey, JSON.stringify(storedValue));
         } catch (error) {
             console.error(error);
         }
-    }, [key, storedValue]);
+    }, [userSpecificKey, storedValue]);
 
     return [storedValue, setStoredValue];
 };

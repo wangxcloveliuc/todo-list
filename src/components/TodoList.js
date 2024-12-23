@@ -6,8 +6,8 @@ import './TodoList.css'
 import { useState } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
-const TodoList = ({user, onLogout }) => {
-    const [todos, setTodos] = useLocalStorage('todos', []);
+const TodoList = ({user, onLogout}) => {
+    const [todos, setTodos] = useLocalStorage('todos', [], user.username);
     const [filter, setFilter] = useState('all');
     const [sortBy, setSortBy] = useState('date');
 

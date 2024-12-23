@@ -26,6 +26,11 @@ const auth = {
       return true;
     }
     return false;
+  },
+
+  getUserTodos: (username) => {
+    const userKey = `${username}-todos`;
+    return JSON.parse(localStorage.getItem(userKey)) || [];
   }
 };
 

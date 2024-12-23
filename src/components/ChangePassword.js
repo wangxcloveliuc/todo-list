@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const ChangePassword = ({ onChangePassword }) => {
   const [username, setUsername] = useState('');
@@ -24,7 +25,21 @@ const ChangePassword = ({ onChangePassword }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onChangePassword(username, oldPassword, newPassword);
+    if (!username || !oldPassword || !newPassword) {
+      toast.error('Please fill in all fields');
+      return;
+    }
+    
+    const success = onChangePassword(username, oldPassword, newPassword);
+    if (success) {
+      toast.success('Password updated successfully! Please login with your new password.');
+      // Redirect to login after 2 seconds
+      setTimeout(() => {
+        window.location.href = '/';
+      }, 2000);
+    } else {
+      toast.error('Invalid username or current password');
+    }
   };
 
   return (

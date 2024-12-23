@@ -60,7 +60,7 @@ const Login = ({ onLogin }) => {
         <button className="auth-button" type="submit">Sign In</button>
         <div className="auth-links">
           <Link to="/register" className="auth-link">Create Account</Link>
-          <Link to="/change-password" className="auth-link">Forgot Password?</Link>
+          <Link to="/change-password" className="auth-link">Change Password</Link>
         </div>
       </form>
     </div>

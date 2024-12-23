@@ -17,12 +17,11 @@ const auth = {
 
   changePassword: (username, oldPassword, newPassword) => {
     const users = JSON.parse(localStorage.getItem('users')) || [];
-    const user = users.find(u => u.username === username && u.password === oldPassword);
-    if (user) {
-      user.password = newPassword;
+    const userIndex = users.findIndex(u => u.username === username && u.password === oldPassword);
+    if (userIndex !== -1) {
+      users[userIndex].password = newPassword;
       localStorage.setItem('users', JSON.stringify(users));
       console.log('Auth: Password changed for user:', username);
-      console.log('Auth: Password changed for user:', newPassword);
       return true;
     }
     return false;

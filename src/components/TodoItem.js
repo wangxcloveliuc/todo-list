@@ -38,7 +38,11 @@ const TodoItem = ({ todo, toggleComplete, removeTodo, editTodo }) => {
             ) : (
                 <button onClick={() => setIsEditing(true)}>Edit</button>
             )}
-            <button onClick={() => removeTodo(todo.id)}>Delete</button>
+            <button onClick={() => {
+                if (window.confirm('Are you sure you want to delete this task?')) {
+                    removeTodo(todo.id);
+                }
+            }}>Delete</button>
         </div>
     );
 };

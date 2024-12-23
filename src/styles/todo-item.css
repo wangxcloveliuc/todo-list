@@ -1,0 +1,77 @@
+.todo-item {
+    background-color: white;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    transition: box-shadow 0.3s ease;
+}
+
+.todo-item:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.todo-item-left {
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+.todo-checkbox {
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.todo-text {
+    flex: 1;
+    word-break: break-word;
+    text-decoration: none;
+    transition: text-decoration 0.3s ease;
+}
+
+.todo-text.completed {
+    text-decoration: line-through;
+    color: #95a5a6;
+}
+
+.todo-edit-input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #3498db;
+    border-radius: 4px;
+    margin-right: 10px;
+    font-size: 1rem;
+    outline: none;
+}
+
+.todo-edit-input:focus {
+    border-color: #2980b9;
+}
+
+.todo-actions {
+    display: flex;
+    gap: 5px;
+}
+
+.todo-actions button {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+}
+
+.todo-actions button:first-child {
+    background-color: #3498db;
+}
+
+.todo-actions button:first-child:hover {
+    background-color: #2980b9;
+}
+
+.todo-actions button:last-child {
+    background-color: #e74c3c;
+}
+
+.todo-actions button:last-child:hover {
+    background-color: #c0392b;
+}

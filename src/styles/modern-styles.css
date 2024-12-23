@@ -1,0 +1,304 @@
+/* Add these modern styles to index.css */
+.auth-container {
+    background: linear-gradient(135deg, #ffffff 0%, #f5f7fa 100%);
+    max-width: 450px;
+    margin: 40px auto;
+    padding: 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    animation: slideUp 0.4s ease-out;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.auth-title {
+    font-size: 2.2rem;
+    background: linear-gradient(45deg, #2c3e50, #3498db);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.auth-input {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 14px 20px;
+    border: 2px solid #eef2f7;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.auth-input:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
+
+.auth-button {
+    background: linear-gradient(45deg, #3498db, #2980b9);
+    padding: 14px;
+    border-radius: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.2);
+    transform: translateY(0);
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.auth-button:hover {
+    background: #2980b9;
+    transform: translateY(-1px);
+}
+
+.auth-links {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.auth-link {
+    color: #3498db;
+    text-decoration: none;
+    font-size: 0.9rem;
+    margin: 0 10px;
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.password-strength {
+    margin: 10px 0;
+}
+
+.strength-bar {
+    height: 4px;
+    background: #e0e0e0;
+    border-radius: 2px;
+    margin-bottom: 5px;
+}
+
+.strength-level {
+    height: 100%;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+.strength-0 .strength-level { background-color: #ff4d4d; }
+.strength-1 .strength-level { background-color: #ffa64d; }
+.strength-2 .strength-level { background-color: #ffff4d; }
+.strength-3 .strength-level { background-color: #70db70; }
+.strength-4 .strength-level { background-color: #2ecc71; }
+
+.strength-text {
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.social-auth {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.social-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid #e1e4e8;
+}
+
+.social-btn.google {
+    background-color: white;
+    color: #3c4043;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.social-btn.google:hover {
+    background-color: #f8f9fa;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.social-btn.github {
+    background-color: #ffffff;
+    color: #24292F;
+    border: 1px solid #e1e4e8;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.social-btn.github:hover {
+    background-color: #f6f8fa;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.social-btn img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+}
+
+/* Add a divider between regular login and social buttons */
+.social-auth-divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 24px 0;
+    color: #666;
+}
+
+.social-auth-divider::before,
+.social-auth-divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #e1e4e8;
+}
+
+.social-auth-divider span {
+    padding: 0 12px;
+    font-size: 0.9rem;
+}
+
+/* Add specific username input styling */
+.auth-input.username-input {
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
+    font-weight: 500;
+    color: #495057;
+    padding: 14px 20px;
+    border-radius: 12px;
+}
+
+.auth-input.username-input:focus {
+    border-color: #4dabf7;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(77, 171, 247, 0.2);
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    margin: 1rem 0;
+    user-select: none;
+}
+
+.remember-me input[type="checkbox"] {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #3498db;
+    border-radius: 4px;
+    margin-right: 10px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.remember-me input[type="checkbox"]:checked {
+    background-color: #3498db;
+}
+
+.remember-me input[type="checkbox"]:checked::after {
+    content: "✓";
+    position: absolute;
+    color: white;
+    font-size: 14px;
+    left: 4px;
+    top: 0px;
+}
+
+.remember-me label {
+    color: #666;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.remember-me:hover label {
+    color: #3498db;
+}
+
+.logout-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: #e74c3c;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    z-index: 1000;
+}
+
+.logout-button:hover {
+    background-color: #c0392b;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.todo-container {
+    position: relative;
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 40px 20px 20px;
+}
+
+.todo-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.error-message {
+    color: #e74c3c;
+    font-size: 0.85rem;
+    margin-top: -8px;
+    margin-bottom: 8px;
+    animation: fadeIn 0.3s ease-in;
+}
+
+.auth-button:disabled {
+    background: #95a5a6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Add loading animation */
+@keyframes rotating {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.loading-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: rotating 0.8s linear infinite;
+    margin-right: 8px;
+}

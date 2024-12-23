@@ -13,7 +13,7 @@ const Login = ({ onLogin }) => {
   return (
     <div className="auth-container">
       <form className="auth-form" onSubmit={handleSubmit}>
-        <h2 className="auth-title">Welcome Back</h2>
+        <h2 className="auth-title">TODO List</h2>
         <input
           className="auth-input"
           type="text"

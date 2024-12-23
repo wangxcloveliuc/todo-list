@@ -5,7 +5,10 @@ const App = () => {
     return (
         <div className="app-container">
             <header className="app-header">
-                <h1>✓ TaskMaster</h1>
+                <div className="logo-container">
+                    <img src="/logo.svg" alt="TaskMaster Logo" />
+                    <h1>✓ TaskMaster Pro</h1>
+                </div>
                 <p className="app-subtitle">Organize your day, achieve more</p>
             </header>
             <main className="main-content">

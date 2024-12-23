@@ -178,3 +178,26 @@ button:hover {
     from { opacity: 0; transform: translateY(-20px); }
     to { opacity: 1; transform: translateY(0); }
 }
+
+/* Add fluid typography */
+:root {
+    --fluid-min-width: 320;
+    --fluid-max-width: 1200;
+    --fluid-min-size: 16;
+    --fluid-max-size: 18;
+    font-size: clamp(
+        var(--fluid-min-size)px,
+        calc(1rem + ((1vw - var(--fluid-min-width)px) * 0.0889)),
+        var(--fluid-max-size)px
+    );
+}
+
+@keyframes taskComplete {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.todo-checkbox:checked + .todo-text {
+    animation: taskComplete 0.3s ease-in-out;
+}

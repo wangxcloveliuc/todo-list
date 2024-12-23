@@ -6,6 +6,8 @@
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     margin-bottom: 24px;
+    transform: translateY(0);
+    transition: transform 0.3s ease;
 }
 
 .todo-input-field {
@@ -21,8 +23,19 @@
 
 .todo-input-field:focus {
     border-color: #3498db;
-    box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
-    transform: scale(1.01);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+}
+
+/* Add voice input button */
+.voice-input-button {
+    background: #3498db;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .todo-add-button,
@@ -68,4 +81,4 @@
         padding: 12px;
         text-align: center;
     }
-} 
+}

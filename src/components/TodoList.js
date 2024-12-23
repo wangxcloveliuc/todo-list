@@ -3,9 +3,27 @@ import TodoInput from './TodoInput';
 import TodoItem from './TodoItem';
 import useLocalStorage from '../hooks/useLocalStorage';
 import './TodoList.css'
+import { useState } from 'react';
 
 const TodoList = () => {
     const [todos, setTodos] = useLocalStorage('todos', []);
+    const [filter, setFilter] = useState('all');
+    const [sortBy, setSortBy] = useState('date');
+
+    const FilterBar = () => (
+        <div className="filter-bar">
+            <select onChange={(e) => setFilter(e.target.value)}>
+                <option value="all">All Tasks</option>
+                <option value="active">Active</option>
+                <option value="completed">Completed</option>
+            </select>
+            <select onChange={(e) => setSortBy(e.target.value)}>
+                <option value="date">Date Added</option>
+                <option value="alphabetical">Alphabetical</option>
+                <option value="priority">Priority</option>
+            </select>
+        </div>
+    );
 
     const EmptyState = () => (
         <div className="empty-state">
@@ -38,19 +56,34 @@ const TodoList = () => {
         );
         setTodos(newTodos);
     };
-
     return (
         <div>
             <TodoInput addTodo={addTodo} />
-            {todos.map((todo) => (
-                <TodoItem
-                    key={todo.id}
-                    todo={todo}
-                    toggleComplete={toggleComplete}
-                    removeTodo={removeTodo}
-                    editTodo={editTodo}
-                />
-            ))}
+            <FilterBar />
+            {todos.length === 0 ? (
+                <EmptyState />
+            ) : (
+                todos
+                    .filter(todo => {
+                        if (filter === 'active') return !todo.completed;
+                        if (filter === 'completed') return todo.completed;
+                        return true;
+                    })
+                    .sort((a, b) => {
+                        if (sortBy === 'alphabetical') return a.text.localeCompare(b.text);
+                        if (sortBy === 'priority') return b.priority - a.priority;
+                        return b.id - a.id; // date added
+                    })
+                    .map((todo) => (
+                        <TodoItem
+                            key={todo.id}
+                            todo={todo}
+                            toggleComplete={toggleComplete}
+                            removeTodo={removeTodo}
+                            editTodo={editTodo}
+                        />
+                    ))
+            )}
         </div>
     );
 };

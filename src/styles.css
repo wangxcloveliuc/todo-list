@@ -201,3 +201,17 @@ button:hover {
 .todo-checkbox:checked + .todo-text {
     animation: taskComplete 0.3s ease-in-out;
 }
+
+/* Add focus styles */
+:focus {
+    outline: 3px solid #3498db;
+    outline-offset: 2px;
+}
+
+/* Add reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}

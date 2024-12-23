@@ -35,6 +35,7 @@ const TodoInput = ({ addTodo }) => {
                 type="text"
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
+                onKeyDown={handleKeyDown}
                 placeholder="Add a new task..."
                 ref={inputRef}
                 className="todo-input-field"

@@ -10,6 +10,21 @@
     box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     transform: translateY(0);
     transition: all 0.3s ease;
+    &.completing {
+        animation: slideComplete 0.5s ease-out;
+    }
+}
+
+@keyframes slideComplete {
+    from { background-color: white; }
+    to { background-color: #e8f5e9; }
+}
+
+/* Add drag handle for future reordering */
+.drag-handle {
+    cursor: grab;
+    padding: 0 8px;
+    color: #bbb;
 }
 
 .todo-item:hover {

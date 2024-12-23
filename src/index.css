@@ -28,3 +28,28 @@ button {
 button:hover {
     background-color: #218838;
 }
+
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 1.5em;
+    }
+
+    input[type='text'] {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+    }
+
+    .task {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

@@ -32,17 +32,17 @@ const TodoItem = ({ todo, toggleComplete, removeTodo, editTodo }) => {
             )}
             {isEditing ? (
                 <>
-                    <button onClick={handleEdit} title="Save changes to this task">Save Changes</button>
-                    <button onClick={handleCancel} title="Cancel editing this task">Cancel Editing</button>
+                    <button onClick={handleEdit} title="Save changes to this task" aria-label="Save task">Save</button>
+                    <button onClick={handleCancel} title="Cancel editing this task" aria-label="Cancel editing">Cancel</button>
                 </>
             ) : (
-                <button onClick={() => setIsEditing(true)} title="Edit this task">Edit Task</button>
+                <button onClick={() => setIsEditing(true)} title="Edit this task" aria-label="Edit task">Edit Task</button>
             )}
             <button onClick={() => {
                 if (window.confirm('Are you sure you want to delete this task?')) {
                     removeTodo(todo.id);
                 }
-            }} title="Permanently delete this task">Delete Task</button>
+            }} title="Permanently delete this task" aria-label="Delete task">Delete</button>
         </div>
     );
 };

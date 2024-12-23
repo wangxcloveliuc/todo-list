@@ -30,7 +30,7 @@ const TodoInput = ({ addTodo }) => {
     }, []);
 
     return (
-        <form onSubmit={handleSubmit} className="todo-input-form">
+        <form onSubmit={handleSubmit} className="todo-input-form" role='form'>
             <input
                 type="text"
                 value={inputValue}

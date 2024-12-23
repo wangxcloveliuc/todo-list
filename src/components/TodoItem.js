@@ -60,6 +60,7 @@ const TodoItem = ({ todo, toggleComplete, removeTodo, editTodo }) => {
                     onClick={() => removeTodo(todo.id)}
                     aria-label={`Delete task: ${todo.text}`}
                     className="delete-button"
+                    role='button'
                 >
                     Delete
                 </button>

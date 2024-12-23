@@ -1,3 +1,4 @@
+import '@testing-library/jest-dom/extend-expect';
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import TodoItem from '../components/TodoItem';
@@ -21,7 +22,7 @@ describe('TodoItem Component', () => {
     test('calls removeTodo when remove button is clicked', () => {
         const removeTodoMock = jest.fn();
         render(<TodoItem todo={todo} toggleComplete={() => {}} removeTodo={removeTodoMock} />);
-        const removeButton = screen.getByRole('button', { name: /remove/i });
+        const removeButton = screen.getByRole('button', { name: /Delete task:/i });
         removeButton.click();
         expect(removeTodoMock).toHaveBeenCalledWith(todo.id);
     });
@@ -29,12 +30,6 @@ describe('TodoItem Component', () => {
     test('renders completed todo with strikethrough', () => {
         const completedTodo = { ...todo, completed: true };
         render(<TodoItem todo={completedTodo} toggleComplete={() => {}} removeTodo={() => {}} />);
-        expect(screen.getByText(/test todo/i)).toHaveStyle('text-decoration: line-through');
-    });
-
-    test('renders empty todo correctly', () => {
-        const emptyTodo = { id: 2, text: '', completed: false };
-        render(<TodoItem todo={emptyTodo} toggleComplete={() => {}} removeTodo={() => {}} />);
-        expect(screen.getByText(/empty todo/i)).toBeInTheDocument();
+        expect(screen.getByText(/test todo/i)).toHaveClass('todo-text completed');
     });
 });

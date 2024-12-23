@@ -1,3 +1,4 @@
+import '@testing-library/jest-dom/extend-expect';
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import App from '../App';
@@ -18,12 +19,12 @@ describe('App Component', () => {
         expect(screen.getByText(/no tasks yet!/i)).toBeInTheDocument();
     });
 
-    // test('adds a new todo', () => {
-    //     render(<App />);
-    //     const input = screen.getByPlaceholderText(/add a new task/i);
-    //     const form = screen.getByRole('form');
-    //     fireEvent.change(input, { target: { value: 'New Todo' } });
-    //     fireEvent.submit(form);
-    //     expect(screen.getByText(/new todo/i)).toBeInTheDocument();
-    // });
+    test('adds a new todo', () => {
+        render(<App />);
+        const input = screen.getByPlaceholderText(/add a new task/i);
+        const form = screen.getByRole('form');
+        fireEvent.change(input, { target: { value: 'New Todo' } });
+        fireEvent.submit(form);
+        expect(screen.getByText(/new todo/i)).toBeInTheDocument();
+    });
 });

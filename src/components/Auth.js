@@ -9,6 +9,9 @@ const auth = {
   login: (username, password) => {
     const users = JSON.parse(localStorage.getItem('users')) || [];
     const user = users.find(u => u.username === username && u.password === password);
+    console.log('Auth: User logged in:', username);
+    console.log('Auth: User logged in:', password);
+    console.log('Auth: User logged in:', user);
     return user || null;
   },
 
@@ -19,6 +22,7 @@ const auth = {
       user.password = newPassword;
       localStorage.setItem('users', JSON.stringify(users));
       console.log('Auth: Password changed for user:', username);
+      console.log('Auth: Password changed for user:', newPassword);
       return true;
     }
     return false;

@@ -15,14 +15,14 @@ describe('TodoInput Component', () => {
         render(<TodoInput addTodo={addTodoMock} />);
         const input = screen.getByPlaceholderText(/add a new task/i);
         fireEvent.change(input, { target: { value: 'New Todo' } });
-        fireEvent.submit(screen.getByRole('form'));
+        fireEvent.submit(screen.getByRole('search'));
         expect(addTodoMock).toHaveBeenCalledWith('New Todo');
     });
 
     test('does not call addTodo when input is empty', () => {
         const addTodoMock = jest.fn();
         render(<TodoInput addTodo={addTodoMock} />);
-        fireEvent.submit(screen.getByRole('form'));
+        fireEvent.submit(screen.getByRole('search'));
         expect(addTodoMock).not.toHaveBeenCalled();
     });
 });

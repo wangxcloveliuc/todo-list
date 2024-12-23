@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import TodoItem from '../src/components/TodoItem';
+import TodoItem from '../components/TodoItem';
 
 describe('TodoItem Component', () => {
     const todo = { id: 1, text: 'Test Todo', completed: false };

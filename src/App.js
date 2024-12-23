@@ -26,7 +26,7 @@ const App = () => {
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
         <Route path="/register" element={<Register onRegister={auth.register} />} />
         <Route path="/change-password" element={<ChangePassword onChangePassword={auth.changePassword} />} />
-        <Route path="/" element={user ? <TodoList onLogout={handleLogout} /> : <Login onLogin={handleLogin} />} />
+        <Route path="/" element={user ? <TodoList user = {user} onLogout={handleLogout} /> : <Login onLogin={handleLogin} />} />
       </Routes>
     </Router>
   );

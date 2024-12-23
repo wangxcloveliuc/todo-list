@@ -6,7 +6,7 @@ import './TodoList.css'
 import { useState } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
-const TodoList = () => {
+const TodoList = ({user, onLogout }) => {
     const [todos, setTodos] = useLocalStorage('todos', []);
     const [filter, setFilter] = useState('all');
     const [sortBy, setSortBy] = useState('date');
@@ -80,7 +80,16 @@ const TodoList = () => {
 
     return (
         <DragDropContext onDragEnd={handleDragEnd}>
-            <div>
+            <div className="todo-container">
+                <div className="todo-header">
+                    <h2>{user.username}'s Todo List</h2>
+                    <button 
+                        className="logout-button"
+                        onClick={onLogout}
+                    >
+                        🚪 Logout
+                    </button>
+                </div>
                 <TodoInput addTodo={addTodo} />
                 <FilterBar />
                 <Droppable droppableId="droppable-todos" mode="standard" type="DEFAULT">

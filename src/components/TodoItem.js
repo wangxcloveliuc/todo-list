@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './TodoItem.css';
+import Modal from './Modal';
 
 const TodoItem = ({ todo, toggleComplete, removeTodo, editTodo }) => {
     const [isEditing, setIsEditing] = useState(false);
@@ -10,6 +11,8 @@ const TodoItem = ({ todo, toggleComplete, removeTodo, editTodo }) => {
         setIsEditing(false);
     };
 
+    const [showModal, setShowModal] = useState(false);
+
     const handleCancel = () => {
         setNewText(todo.text);
         setIsEditing(false);
@@ -17,6 +20,15 @@ const TodoItem = ({ todo, toggleComplete, removeTodo, editTodo }) => {
 
     return (
         <div className="todo-item">
+            <Modal
+                isOpen={showModal}
+                onClose={() => setShowModal(false)}
+                onConfirm={() => {
+                    removeTodo(todo.id);
+                    setShowModal(false);
+                }}
+                message="Are you sure you want to delete this task?"
+            />
             <div className="todo-item-left">
                 <div className="drag-handle" aria-label="Drag handle">
                     ☰
@@ -62,7 +74,7 @@ const TodoItem = ({ todo, toggleComplete, removeTodo, editTodo }) => {
                     <button onClick={handleEdit} className="save-button">Save</button>
                 )}
                 <button 
-                    onClick={() => removeTodo(todo.id)}
+                    onClick={() => setShowModal(true)}
                     aria-label={`Delete task: ${todo.text}`}
                     className="delete-button"
                 >

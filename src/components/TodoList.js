@@ -4,6 +4,7 @@ import TodoItem from './TodoItem';
 import useLocalStorage from '../hooks/useLocalStorage';
 import './TodoList.css'
 import { useState } from 'react';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 const TodoList = () => {
     const [todos, setTodos] = useLocalStorage('todos', []);
@@ -41,8 +42,8 @@ const TodoList = () => {
         </div>
     );
 
-    const addTodo = (text) => {
-        const newTodos = [...todos, { id: Date.now(), text, completed: false }];
+    const addTodo = (text, dueDate, reminder) => {
+        const newTodos = [...todos, { id: Date.now(), text, completed: false, dueDate, reminder }];
         setTodos(newTodos);
     };
 
@@ -64,43 +65,73 @@ const TodoList = () => {
         );
         setTodos(newTodos);
     };
+
+    const handleDragEnd = (result) => {
+        if (!result.destination) return;
+
+        const items = Array.from(todos);
+        const [reorderedItem] = items.splice(result.source.index, 1);
+        items.splice(result.destination.index, 0, reorderedItem);
+
+        setTimeout(() => {
+            setTodos(items);
+        }, 0);
+    };
+
     return (
-        <div>
-            <TodoInput addTodo={addTodo} />
-            <FilterBar />
-            {todos.length === 0 ? (
-                <EmptyState />
-            ) : (
-                todos
-                    .filter(todo => {
-                        switch(filter) {
-                            case 'active':
-                                return !todo.completed;
-                            case 'completed':
-                                return todo.completed;
-                            case 'all':
-                            default:
-                                return true;
-                        }
-                    })
-                    .sort((a, b) => {
-                        if (sortBy === 'alphabetical') return a.text.localeCompare(b.text);
-                        if (sortBy === 'priority') return b.priority - a.priority;
-                        return b.id - a.id;
-                    })
-                    .map((todo) => (
-                        <TodoItem
-                            key={todo.id}
-                            todo={todo}
-                            toggleComplete={toggleComplete}
-                            removeTodo={removeTodo}
-                            editTodo={editTodo}
-                        />
-                    ))
-            )}
-        </div>
+        <DragDropContext onDragEnd={handleDragEnd}>
+            <div>
+                <TodoInput addTodo={addTodo} />
+                <FilterBar />
+                <Droppable droppableId="droppable-todos">
+                    {(provided) => (
+                        <div {...provided.droppableProps} ref={provided.innerRef}>
+                            {todos.length === 0 ? (
+                                <EmptyState />
+                            ) : (
+                                todos
+                                    .filter(todo => {
+                                        switch(filter) {
+                                            case 'active':
+                                                return !todo.completed;
+                                            case 'completed':
+                                                return todo.completed;
+                                            case 'all':
+                                            default:
+                                                return true;
+                                        }
+                                    })
+                                    .sort((a, b) => {
+                                        if (sortBy === 'alphabetical') return a.text.localeCompare(b.text);
+                                        if (sortBy === 'priority') return b.priority - a.priority;
+                                        return b.id - a.id;
+                                    })
+                                    .map((todo, index) => (
+                                        <Draggable key={`${todo.id}-${index}`} draggableId={String(todo.id)} index={index}>
+                                            {(provided) => (
+                                                <div
+                                                    ref={provided.innerRef}
+                                                    {...provided.draggableProps}
+                                                    {...provided.dragHandleProps}
+                                                >
+                                                    <TodoItem
+                                                        todo={todo}
+                                                        toggleComplete={toggleComplete}
+                                                        removeTodo={removeTodo}
+                                                        editTodo={editTodo}
+                                                    />
+                                                </div>
+                                            )}
+                                        </Draggable>
+                                    ))
+                            )}
+                            {provided.placeholder}
+                        </div>
+                    )}
+                </Droppable>
+            </div>
+        </DragDropContext>
     );
 };
-
 
 export default TodoList;

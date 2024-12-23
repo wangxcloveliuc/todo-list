@@ -3,13 +3,17 @@ import './TodoInput.css';
 
 const TodoInput = ({ addTodo }) => {
     const [inputValue, setInputValue] = useState('');
+    const [dueDate, setDueDate] = useState('');
+    const [reminder, setReminder] = useState('');
     const inputRef = useRef(null);
 
     const handleSubmit = (e) => {
         e.preventDefault();
         if (inputValue.trim()) {
-            addTodo(inputValue.trim());
+            addTodo(inputValue.trim(), dueDate, reminder);
             setInputValue('');
+            setDueDate('');
+            setReminder('');
             inputRef.current.focus();
         }
     };
@@ -39,6 +43,20 @@ const TodoInput = ({ addTodo }) => {
                 placeholder="Add a new task..."
                 ref={inputRef}
                 className="todo-input-field"
+            />
+            <input
+                type="date"
+                value={dueDate}
+                onChange={(e) => setDueDate(e.target.value)}
+                className="todo-input-date"
+                placeholder="Due Date"
+            />
+            <input
+                type="time"
+                value={reminder}
+                onChange={(e) => setReminder(e.target.value)}
+                className="todo-input-time"
+                placeholder="Reminder"
             />
             <button type="submit" className="todo-add-button" aria-label="Add new task">
                 Add

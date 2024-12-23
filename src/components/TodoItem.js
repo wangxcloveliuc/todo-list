@@ -18,6 +18,9 @@ const TodoItem = ({ todo, toggleComplete, removeTodo, editTodo }) => {
     return (
         <div className="todo-item">
             <div className="todo-item-left">
+                <div className="drag-handle" aria-label="Drag handle">
+                    ☰
+                </div>
                 <input
                     type="checkbox"
                     id={`todo-${todo.id}`}
@@ -31,6 +34,8 @@ const TodoItem = ({ todo, toggleComplete, removeTodo, editTodo }) => {
                         className={`todo-text ${todo.completed ? 'completed' : ''}`}
                     >
                         {todo.text}
+                        {todo.dueDate && <div className="todo-due-date">Due: {todo.dueDate}</div>}
+                        {todo.reminder && <div className="todo-reminder">Reminder: {todo.reminder}</div>}
                     </label>
                 ) : (
                     <input
@@ -52,9 +57,9 @@ const TodoItem = ({ todo, toggleComplete, removeTodo, editTodo }) => {
             </div>
             <div className="todo-actions">
                 {!isEditing ? (
-                    <button onClick={() => setIsEditing(true)}>Edit</button>
+                    <button onClick={() => setIsEditing(true)} className="edit-button">Edit</button>
                 ) : (
-                    <button onClick={handleEdit}>Save</button>
+                    <button onClick={handleEdit} className="save-button">Save</button>
                 )}
                 <button 
                     onClick={() => removeTodo(todo.id)}

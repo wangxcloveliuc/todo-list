@@ -23,6 +23,13 @@ const TodoList = () => {
         setTodos(newTodos);
     };
 
+    const editTodo = (id, newText) => {
+        const newTodos = todos.map((todo) => 
+            todo.id === id ? { ...todo, text: newText } : todo
+        );
+        setTodos(newTodos);
+    };
+
     return (
         <div>
             <TodoInput addTodo={addTodo} />
@@ -32,6 +39,7 @@ const TodoList = () => {
                     todo={todo}
                     toggleComplete={toggleComplete}
                     removeTodo={removeTodo}
+                    editTodo={editTodo}
                 />
             ))}
         </div>

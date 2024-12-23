@@ -5,6 +5,22 @@ const ChangePassword = ({ onChangePassword }) => {
   const [username, setUsername] = useState('');
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
+  const [passwordStrength, setPasswordStrength] = useState(0);
+
+  const checkPasswordStrength = (password) => {
+    let strength = 0;
+    if (password.length >= 8) strength++;
+    if (/[A-Z]/.test(password)) strength++;
+    if (/[0-9]/.test(password)) strength++;
+    if (/[^A-Za-z0-9]/.test(password)) strength++;
+    setPasswordStrength(strength);
+  };
+
+  const handleNewPasswordChange = (e) => {
+    const newPass = e.target.value;
+    setNewPassword(newPass);
+    checkPasswordStrength(newPass);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -16,7 +32,7 @@ const ChangePassword = ({ onChangePassword }) => {
       <form className="auth-form" onSubmit={handleSubmit}>
         <h2 className="auth-title">Change Password</h2>
         <input
-          className="auth-input"
+          className="auth-input username-input"
           type="text"
           placeholder="Username"
           value={username}
@@ -34,11 +50,23 @@ const ChangePassword = ({ onChangePassword }) => {
           type="password"
           placeholder="New Password"
           value={newPassword}
-          onChange={(e) => setNewPassword(e.target.value)}
+          onChange={handleNewPasswordChange}
         />
+        <div className="password-strength">
+          <div className={`strength-bar strength-${passwordStrength}`}>
+            <div className="strength-level" style={{ width: `${passwordStrength * 25}%` }}></div>
+          </div>
+          <span className="strength-text">
+            {passwordStrength === 0 && 'Very Weak'}
+            {passwordStrength === 1 && 'Weak'}
+            {passwordStrength === 2 && 'Medium'}
+            {passwordStrength === 3 && 'Strong'}
+            {passwordStrength === 4 && 'Very Strong'}
+          </span>
+        </div>
         <button className="auth-button" type="submit">Update Password</button>
         <div className="auth-links">
-          <Link to="/login" className="auth-link">Back to Login</Link>
+          <Link to="/" className="auth-link">Back to Login</Link>
         </div>
       </form>
     </div>

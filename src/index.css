@@ -552,3 +552,34 @@ body.dark-mode .theme-toggle:hover {
     align-items: center;
     margin-bottom: 20px;
 }
+
+.error-message {
+    color: #e74c3c;
+    font-size: 0.85rem;
+    margin-top: -8px;
+    margin-bottom: 8px;
+    animation: fadeIn 0.3s ease-in;
+}
+
+.auth-button:disabled {
+    background: #95a5a6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Add loading animation */
+@keyframes rotating {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.loading-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: rotating 0.8s linear infinite;
+    margin-right: 8px;
+}

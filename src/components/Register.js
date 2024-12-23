@@ -7,10 +7,25 @@ import github_icon from '../assets/github-icon.svg';
 const Register = ({ onRegister }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  // Add validation state
+  const [errors, setErrors] = useState({});
+  const validateForm = () => {
+    const newErrors = {};
+    if (username.length < 3) {
+      newErrors.username = 'Username must be at least 3 characters';
+    }
+    if (password.length < 6) {
+      newErrors.password = 'Password must be at least 6 characters';
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onRegister(username, password);
+    if (validateForm()) {
+      onRegister(username, password);
+    }
   };
 
   return (
@@ -31,6 +46,8 @@ const Register = ({ onRegister }) => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+        {errors.username && <span className="error-message">{errors.username}</span>}
+        {errors.password && <span className="error-message">{errors.password}</span>}
         <button className="auth-button" type="submit">Sign Up</button>
         <div className="auth-links">
           <Link to="/" className="auth-link">Already have an account?</Link>

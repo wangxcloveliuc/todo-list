@@ -66,20 +66,42 @@
     background-color: #f39c12;
 }
 
-@media (max-width: 600px) {
-    .todo-input-form {
+.todo-input-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.todo-input-basic {
+    display: flex;
+    gap: 10px;
+}
+
+.todo-input-advanced {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    padding-top: 12px;
+    border-top: 1px solid #eee;
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+    .todo-input-advanced {
+        grid-template-columns: 1fr;
+    }
+    
+    .todo-input-basic {
         flex-direction: column;
     }
-
+    
     .todo-input-field {
-        margin-bottom: 10px;
-    }
-
-    .todo-add-button,
-    .todo-clear-button {
         width: 100%;
-        padding: 12px;
-        text-align: center;
     }
 }
 
@@ -100,4 +122,14 @@
     border-color: #3498db;
     transform: translateY(-2px);
     box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+}
+
+.todo-input-basic .todo-input-field {
+    font-size: 1.1rem;
+    padding: 12px;
+}
+
+.todo-input-advanced input {
+    font-size: 0.9rem;
+    padding: 8px;
 }

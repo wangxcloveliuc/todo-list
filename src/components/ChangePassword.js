@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const ChangePassword = ({ onChangePassword }) => {
   const [username, setUsername] = useState('');
@@ -11,28 +12,36 @@ const ChangePassword = ({ onChangePassword }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Change Password</h2>
-      <input
-        type="text"
-        placeholder="Username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Old Password"
-        value={oldPassword}
-        onChange={(e) => setOldPassword(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="New Password"
-        value={newPassword}
-        onChange={(e) => setNewPassword(e.target.value)}
-      />
-      <button type="submit">Change Password</button>
-    </form>
+    <div className="auth-container">
+      <form className="auth-form" onSubmit={handleSubmit}>
+        <h2 className="auth-title">Change Password</h2>
+        <input
+          className="auth-input"
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <input
+          className="auth-input"
+          type="password"
+          placeholder="Current Password"
+          value={oldPassword}
+          onChange={(e) => setOldPassword(e.target.value)}
+        />
+        <input
+          className="auth-input"
+          type="password"
+          placeholder="New Password"
+          value={newPassword}
+          onChange={(e) => setNewPassword(e.target.value)}
+        />
+        <button className="auth-button" type="submit">Update Password</button>
+        <div className="auth-links">
+          <Link to="/login" className="auth-link">Back to Login</Link>
+        </div>
+      </form>
+    </div>
   );
 };
 

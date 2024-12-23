@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Register = ({ onRegister }) => {
   const [username, setUsername] = useState('');
@@ -6,27 +7,33 @@ const Register = ({ onRegister }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('User registered:', username);
     onRegister(username, password);
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Register</h2>
-      <input
-        type="text"
-        placeholder="Username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button type="submit">Register</button>
-    </form>
+    <div className="auth-container">
+      <form className="auth-form" onSubmit={handleSubmit}>
+        <h2 className="auth-title">Create Account</h2>
+        <input
+          className="auth-input"
+          type="text"
+          placeholder="Choose Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <input
+          className="auth-input"
+          type="password"
+          placeholder="Choose Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button className="auth-button" type="submit">Sign Up</button>
+        <div className="auth-links">
+          <Link to="/login" className="auth-link">Already have an account?</Link>
+        </div>
+      </form>
+    </div>
   );
 };
 

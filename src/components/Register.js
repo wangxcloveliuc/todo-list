@@ -6,6 +6,7 @@ const Register = ({ onRegister }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log('User registered:', username);
     onRegister(username, password);
   };
 

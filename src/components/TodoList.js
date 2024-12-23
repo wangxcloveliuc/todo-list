@@ -35,7 +35,7 @@ const TodoList = () => {
 
     const EmptyState = () => (
         <div className="empty-state">
-            <img src="/empty-state.svg" alt="No tasks yet" />
+            {/* <img src="/empty-state.svg" alt="No tasks yet" /> */}
             <h3>No tasks yet!</h3>
             <p>Add your first task to get started</p>
         </div>

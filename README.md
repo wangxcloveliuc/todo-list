@@ -75,22 +75,35 @@ This project aims to create a user-friendly interface for task management, with 
 todo-list-app/
 ├── public/
 │   ├── index.html  
-│   └── favicon.ico
+│   ├── favicon.ico
+│   └── logo.svg
 └── src/
     ├── components/
+    │   ├── Auth.js
+    │   ├── ChangePassword.js
+    │   ├── Login.js
+    │   ├── Modal.css
+    │   ├── Modal.js
+    │   ├── Register.js
+    │   ├── TodoInput.css
     │   ├── TodoInput.js
+    │   ├── TodoItem.css
     │   ├── TodoItem.js
+    │   ├── TodoList.css
     │   └── TodoList.js
     ├── hooks/
     │   └── useLocalStorage.js
     ├── tests/
+    │   ├── App.test.js
     │   ├── TodoInput.test.js
     │   ├── TodoItem.test.js
-    │   ├── TodoList.test.js
-    │   └── App.test.js
+    │   └── TodoList.test.js
     ├── App.js
+    ├── index.css
     ├── index.js
-    └── styles.css
+    └── assets/
+        ├── github-icon.svg
+        └── google-icon.svg
 ├── .gitignore
 ├── package.json
 └── README.md
@@ -129,6 +142,27 @@ todo-list-app/
 - Manages the list of tasks
 - Handles rendering of `TodoItem` components
 
+### `Auth.js`
+
+- Handles user authentication
+- Provides login, registration, and logout functionalities
+
+### `ChangePassword.js`
+
+- Handles password change functionality
+
+### `Login.js`
+
+- Handles user login functionality
+
+### `Register.js`
+
+- Handles user registration functionality
+
+### `Modal.js`
+
+- Provides a modal component for displaying additional information or actions
+
 ### `useLocalStorage.js`
 
 - Custom hook for managing local storage
@@ -141,13 +175,18 @@ todo-list-app/
 
 ## Testing
 
-- Unit tests for individual components (`TodoInput`, `TodoItem`, `TodoList`)
+- Unit tests for individual components (`TodoInput`, `TodoItem`, `TodoList`, `App`)
 - Integration tests to ensure the entire application works as expected
 - User acceptance testing to validate the application meets user needs
 
 Run tests using:
 
 npm test
+
+## State Management
+
+- We use React's `useState` hook for managing component-level state
+- The `useLocalStorage` custom hook integrates with local storage for persistence
 
 ## Deployment
 

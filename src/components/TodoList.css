@@ -1,0 +1,20 @@
+.todo-list-container {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    padding: 20px;
+}
+
+.todo-list-title {
+    text-align: center;
+    color: #3498db;
+    margin-bottom: 20px;
+    font-weight: 400;
+}
+
+.empty-message {
+    text-align: center;
+    color: #777;
+    font-style: italic;
+    margin-top: 20px;
+} 

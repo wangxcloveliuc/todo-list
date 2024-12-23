@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './TodoItem.css';
 
 const TodoItem = ({ todo, toggleComplete, removeTodo, editTodo }) => {
     const [isEditing, setIsEditing] = useState(false);
@@ -15,34 +16,48 @@ const TodoItem = ({ todo, toggleComplete, removeTodo, editTodo }) => {
     };
 
     return (
-        <div>
-            <input
-                type="checkbox"
-                checked={todo.completed}
-                onChange={() => toggleComplete(todo.id)}
-            />
-            {isEditing ? (
+        <div className="todo-item">
+            <div className="todo-item-left">
                 <input
-                    type="text"
-                    value={newText}
-                    onChange={(e) => setNewText(e.target.value)}
+                    type="checkbox"
+                    id={`todo-${todo.id}`}
+                    className="todo-checkbox"
+                    checked={todo.completed}
+                    onChange={() => toggleComplete(todo.id)}
                 />
-            ) : (
-                <span style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}>{todo.text}</span>
-            )}
-            {isEditing ? (
-                <>
-                    <button onClick={handleEdit} title="Save changes to this task" aria-label="Save task">Save</button>
-                    <button onClick={handleCancel} title="Cancel editing this task" aria-label="Cancel editing">Cancel</button>
-                </>
-            ) : (
-                <button onClick={() => setIsEditing(true)} title="Edit this task" aria-label="Edit task">Edit Task</button>
-            )}
-            <button onClick={() => {
-                if (window.confirm('Are you sure you want to delete this task?')) {
-                    removeTodo(todo.id);
-                }
-            }} title="Permanently delete this task" aria-label="Delete task">Delete</button>
+                {!isEditing ? (
+                    <label
+                        htmlFor={`todo-${todo.id}`}
+                        className={`todo-text ${todo.completed ? 'completed' : ''}`}
+                    >
+                        {todo.text}
+                    </label>
+                ) : (
+                    <input
+                        type="text"
+                        className="todo-edit-input"
+                        value={newText}
+                        onChange={(e) => setNewText(e.target.value)}
+                        onBlur={handleEdit}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                                handleEdit();
+                            } else if (e.key === 'Escape') {
+                                handleCancel();
+                            }
+                        }}
+                        autoFocus
+                    />
+                )}
+            </div>
+            <div className="todo-actions">
+                {!isEditing ? (
+                    <button onClick={() => setIsEditing(true)}>Edit</button>
+                ) : (
+                    <button onClick={handleEdit}>Save</button>
+                )}
+                <button onClick={() => removeTodo(todo.id)}>Delete</button>
+            </div>
         </div>
     );
 };

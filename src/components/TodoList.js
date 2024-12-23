@@ -2,6 +2,7 @@ import React from 'react';
 import TodoInput from './TodoInput';
 import TodoItem from './TodoItem';
 import useLocalStorage from '../hooks/useLocalStorage';
+import './TodoList.css'
 
 const TodoList = () => {
     const [todos, setTodos] = useLocalStorage('todos', []);

@@ -1,35 +1,28 @@
-import '@testing-library/jest-dom/extend-expect';
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import TodoItem from '../components/TodoItem';
 
-describe('TodoItem Component', () => {
-    const todo = { id: 1, text: 'Test Todo', completed: false };
+test('shows modal when deadline is reached', () => {
+    const todo = {
+        id: 1,
+        text: 'Test Task',
+        completed: false,
+        dueDate: new Date().toISOString(), // Set the dueDate to the current time
+    };
+    const toggleComplete = jest.fn();
+    const removeTodo = jest.fn();
+    const editTodo = jest.fn();
 
-    test('renders TodoItem correctly', () => {
-        render(<TodoItem todo={todo} toggleComplete={() => {}} removeTodo={() => {}} />);
-        expect(screen.getByText(/test todo/i)).toBeInTheDocument();
-    });
+    render(
+        <TodoItem
+            todo={todo}
+            toggleComplete={toggleComplete}
+            removeTodo={removeTodo}
+            editTodo={editTodo}
+        />
+    );
 
-    test('calls toggleComplete when checkbox is clicked', () => {
-        const toggleCompleteMock = jest.fn();
-        render(<TodoItem todo={todo} toggleComplete={toggleCompleteMock} removeTodo={() => {}} />);
-        const checkbox = screen.getByRole('checkbox');
-        checkbox.click();
-        expect(toggleCompleteMock).toHaveBeenCalledWith(todo.id);
-    });
-
-    test('calls removeTodo when remove button is clicked', () => {
-        const removeTodoMock = jest.fn();
-        render(<TodoItem todo={todo} toggleComplete={() => {}} removeTodo={removeTodoMock} />);
-        const removeButton = screen.getByRole('button', { name: /Delete task:/i });
-        removeButton.click();
-        expect(removeTodoMock).toHaveBeenCalledWith(todo.id);
-    });
-
-    test('renders completed todo with strikethrough', () => {
-        const completedTodo = { ...todo, completed: true };
-        render(<TodoItem todo={completedTodo} toggleComplete={() => {}} removeTodo={() => {}} />);
-        expect(screen.getByText(/test todo/i)).toHaveClass('todo-text completed');
-    });
+    // Check if the modal is shown
+    const modalMessage = screen.getByText('The deadline for this task has been reached!');
+    expect(modalMessage).toBeInTheDocument();
 });

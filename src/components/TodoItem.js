@@ -1,33 +1,49 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './TodoItem.css';
 import Modal from './Modal';
 
 const TodoItem = ({ todo, toggleComplete, removeTodo, editTodo }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [newText, setNewText] = useState(todo.text);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [showDeadlineModal, setShowDeadlineModal] = useState(false);
 
     const handleEdit = () => {
         editTodo(todo.id, newText);
         setIsEditing(false);
     };
 
-    const [showModal, setShowModal] = useState(false);
-
     const handleCancel = () => {
         setNewText(todo.text);
         setIsEditing(false);
     };
 
+    useEffect(() => {
+        if (todo.dueDate) {
+            const currentTime = new Date();
+            const dueDate = new Date(todo.dueDate);
+            if (currentTime >= dueDate) {
+                setShowDeadlineModal(true);
+            }
+        }
+    }, [todo.dueDate]);
+
     return (
         <div className="todo-item">
             <Modal
-                isOpen={showModal}
-                onClose={() => setShowModal(false)}
+                isOpen={showDeleteModal}
+                onClose={() => setShowDeleteModal(false)}
                 onConfirm={() => {
                     removeTodo(todo.id);
-                    setShowModal(false);
+                    setShowDeleteModal(false);
                 }}
                 message="Are you sure you want to delete this task?"
+            />
+            <Modal
+                isOpen={showDeadlineModal}
+                onClose={() => setShowDeadlineModal(false)}
+                onConfirm={() => setShowDeadlineModal(false)}
+                message="The deadline for this task has been reached!"
             />
             <div className="todo-item-left">
                 <div className="drag-handle" aria-label="Drag handle">
@@ -74,7 +90,7 @@ const TodoItem = ({ todo, toggleComplete, removeTodo, editTodo }) => {
                     <button onClick={handleEdit} className="save-button">Save</button>
                 )}
                 <button 
-                    onClick={() => setShowModal(true)}
+                    onClick={() => setShowDeleteModal(true)}
                     aria-label={`Delete task: ${todo.text}`}
                     className="delete-button"
                 >

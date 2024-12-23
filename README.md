@@ -83,14 +83,14 @@ todo-list-app/
     │   └── TodoList.js
     ├── hooks/
     │   └── useLocalStorage.js
+    ├── tests/
+    │   ├── TodoInput.test.js
+    │   ├── TodoItem.test.js
+    │   ├── TodoList.test.js
+    │   └── App.test.js
     ├── App.js
     ├── index.js
     └── styles.css
-├── tests/
-│   ├── TodoInput.test.js
-│   ├── TodoItem.test.js
-│   ├── TodoList.test.js
-│   └── App.test.js
 ├── .gitignore
 ├── package.json
 └── README.md

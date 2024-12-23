@@ -17,7 +17,7 @@ const App = () => {
         <div className="app-container">
             <header className="app-header">
                 <div className="logo-container">
-                    <img src="/logo.svg" alt="TaskMaster Logo" className="app-logo" />
+                    {/* <img src="/logo.svg" alt="TaskMaster Logo" className="app-logo" /> */}
                     <h1>✓ TaskMaster Pro</h1>
                 </div>
                 <button className="theme-toggle" onClick={toggleTheme}>

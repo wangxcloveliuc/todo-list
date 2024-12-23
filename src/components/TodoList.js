@@ -11,16 +11,24 @@ const TodoList = () => {
     const [sortBy, setSortBy] = useState('date');
 
     const FilterBar = () => (
-        <div className="filter-bar">
-            <select value={filter} onChange={(e) => setFilter(e.target.value)}>
-                <option value="all">All Tasks</option>
-                <option value="active">Active</option>
-                <option value="completed">Completed</option>
+        <div className="filter-bar" role="toolbar" aria-label="Task filter options">
+            <select 
+                value={filter} 
+                onChange={(e) => setFilter(e.target.value)}
+                aria-label="Filter tasks"
+            >
+                <option value="all">📋 All Tasks</option>
+                <option value="active">🔵 Active</option>
+                <option value="completed">✅ Completed</option>
             </select>
-            <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
-                <option value="date">Date Added</option>
-                <option value="alphabetical">Alphabetical</option>
-                <option value="priority">Priority</option>
+            <select 
+                value={sortBy} 
+                onChange={(e) => setSortBy(e.target.value)}
+                aria-label="Sort tasks"
+            >
+                <option value="date">⏱️ Date Added</option>
+                <option value="alphabetical">📝 Alphabetical</option>
+                <option value="priority">🔥 Priority</option>
             </select>
         </div>
     );

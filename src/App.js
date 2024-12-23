@@ -1,37 +1,43 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Auth from './components/Auth';
+import Login from './components/Login';
+import Register from './components/Register';
+import ChangePassword from './components/ChangePassword';
 import TodoList from './components/TodoList';
 
 const App = () => {
-    const [isDarkMode, setIsDarkMode] = useState(false);
+  const [user, setUser] = useState(null);
+  const auth = Auth();
 
-    useEffect(() => {
-        document.body.classList.toggle('dark-mode', isDarkMode);
-    }, [isDarkMode]);
+  const handleLogin = (username, password) => {
+    if (auth.login(username, password)) {
+      setUser(username);
+    }
+  };
 
-    const toggleTheme = () => {
-        setIsDarkMode(!isDarkMode);
-        document.body.classList.toggle('dark-mode');
-    };
+  const handleLogout = () => {
+    setUser(null);
+  };
 
-    return (
-        <div className="app-container">
-            <header className="app-header">
-                <div className="logo-container">
-                    {/* <img src="/logo.svg" alt="TaskMaster Logo" className="app-logo" /> */}
-                    <h1>✓ TaskMaster Pro</h1>
-                </div>
-                <button className="theme-toggle" onClick={toggleTheme}>
-                    {isDarkMode ? '☀️' : '🌙'}
-                </button>
-            </header>
-            <main className="main-content">
-                <TodoList />
-            </main>
-            <footer className="app-footer">
-                <p>Made with ♥️ for productivity</p>
-            </footer>
-        </div>
-    );
+  return (
+    <Router>
+      <Switch>
+        <Route path="/login">
+          <Login onLogin={handleLogin} />
+        </Route>
+        <Route path="/register">
+          <Register onRegister={auth.register} />
+        </Route>
+        <Route path="/change-password">
+          <ChangePassword onChangePassword={auth.changePassword} />
+        </Route>
+        <Route path="/">
+          {user ? <TodoList onLogout={handleLogout} /> : <Login onLogin={handleLogin} />}
+        </Route>
+      </Switch>
+    </Router>
+  );
 };
 
 export default App;
